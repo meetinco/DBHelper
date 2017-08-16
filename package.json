@@ -1,5 +1,5 @@
 {
-  "name": "db_helper",
+  "name": "db-helper-meetin",
   "version": "1.0.0",
   "description": "help to use mongodb",
   "main": "index.js",
