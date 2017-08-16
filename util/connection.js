@@ -22,6 +22,10 @@ exports.initDB = function initDB(mongoDBAddress, debugMode) {
     connections[CONN_DEFAULT] = createConnection(mongoDBAddress, debugMode);
 }
 
+exports.isDebugMode = () => {
+    return connections[CONN_DEFAULT].debugMode;
+}
+
 /**
  * 创建一个数据库连接
  * @param {string} dbUri 连接地址
@@ -34,7 +38,8 @@ function createConnection(dbUri, debugMode) {
         db: mongoose.createConnection(dbUri, {
             // 在每次数据更新后自动更新索引，有性能开销
             config: {autoIndex: debugMode}
-        })
+        }),
+        debugMode
     };
     connectionInfo.db.on('error', (e) => {
         console.error(`连接数据库失败: ${e.message}`);

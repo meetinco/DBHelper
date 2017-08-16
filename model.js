@@ -1,16 +1,22 @@
 /**
  * Created by gukong on 2017/8/14.
  */
-const dbUtils = require('./util/connection');
+const connectionUtils = require('./util/connection');
 const gFilterDocument = require('./util/doc_filter');
 const MError = require('merror-meetin');
 let archiveManager = null;
 
 /** ********************外露接口************************ */
 
+function normalizeName(modelName) {
+    return modelName.replace(/[A-Z]+/g, a => `_${a.toLowerCase()}`).replace(/^_/, '');
+}
+
 class DBModel {
     constructor(dbName, schema) {
-        this.model = dbUtils.createModel(dbName, schema);
+        let name = normalizeName(dbName);
+        name = connectionUtils.isDebugMode() ? `${name}_dev` : name;
+        this.model = connectionUtils.createModel(name, schema);
     }
 
     /**
