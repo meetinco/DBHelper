@@ -5,7 +5,7 @@
 const dbUtils = require('../../util/connection');
 const schema = require('./schema');
 
-const archive = dbUtils.createModel('archive', schema);
+const archive = dbUtils.createModel('archive-sys', schema);
 
 module.exports = archive;
 
