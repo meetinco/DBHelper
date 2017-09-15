@@ -11,5 +11,5 @@ connectHelper.initDB('mongodb://localhost:25916/db_helper', true);
 const model = new DBModel('waiter', schemal);
 
 // update collection
-model.newDoc({serviceId: '556'});
-// model.archive({serviceId: '556'});
+// model.newDoc({serviceId: '556'});
+model.archive({serviceId: '556'});

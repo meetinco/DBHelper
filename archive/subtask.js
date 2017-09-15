@@ -2,7 +2,7 @@
  * Created by Carlos on 2016/12/24.
  */
 const Promise = require('bluebird');
-const MError = require('merror-meetin');
+const MError = require('../util/error');
 const gFilterDocument = require('../util/doc_filter');
 const archiveModel = require('./db/model');
 
@@ -15,15 +15,15 @@ exports.findDeleteDoc = (model, queryCondition) => {
     return model.findOne(queryCondition)
         .exec()
         .catch((error) => {
-            throw new MError(MError.ACESS_DATABASE_ERROR, error);
+            throw new MError(MError.Errcode.ACESS_DATABASE_ERROR, error);
         })
         .then((deleteDoc) => {
             if (!deleteDoc) {
-                throw new MError(MError.FIND_NOTHING_IN_DB).setMessageTemplateData(['被删除doc']);
+                throw new MError(MError.Errcode.FIND_NOTHING_IN_DB).setMessageTemplateData(['被删除doc']);
             }
             return gFilterDocument(deleteDoc);
         });
-}
+};
 
 /**
  * 检查saveDeletedDoc方法参数
@@ -31,10 +31,10 @@ exports.findDeleteDoc = (model, queryCondition) => {
  */
 exports.checkSaveDocParame = (model) => {
     if (!model.modelName) {
-        return Promise.reject(new MError(MError.PARAMETER_ERROR, `modelName=${model.modelName}`));
+        return Promise.reject(new MError(MError.Errcode.PARAMETER_ERROR, `modelName=${model.modelName}`));
     }
     return Promise.resolve();
-}
+};
 
 /**
  * 删除并保存被删除的doc
@@ -52,4 +52,4 @@ exports.deleteAndSaveDoc = (deletedDoc, model, queryCondition) => {
     // 异步删除
     model.remove(queryCondition)
         .exec();
-}
+};

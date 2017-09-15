@@ -6,7 +6,7 @@
  */
 const Promise = require('bluebird');
 const mongoose = require('mongoose');
-const MError = require('merror-meetin');
+const MError = require('./error');
 mongoose.Promise = Promise;
 
 // 数据库连接列表，按表分库的时候用到
@@ -74,7 +74,7 @@ function createConnection(dbUri, debugMode) {
  */
 function getConnection() {
     if (!connections.length) {
-        throw new MError(MError.DATABASE_CONNECTION_NOT_EXIST, 'db connection is not exist');
+        throw new MError(MError.Errcode.DATABASE_CONNECTION_NOT_EXIST, 'db connection is not exist');
     }
     return connections[CONN_DEFAULT].db;
 };

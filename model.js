@@ -3,7 +3,7 @@
  */
 const connectionUtils = require('./util/connection');
 const gFilterDocument = require('./util/doc_filter');
-const MError = require('merror-meetin');
+const MError = require('./util/error');
 let archiveManager = null;
 
 /** ********************外露接口************************ */
@@ -36,7 +36,7 @@ class DBModel {
             .select(selectArray ? selectArray.join(' ') : '')
             .exec()
             .catch((error) => {
-                throw new Error(MError.ACESS_DATABASE_ERROR, error);
+                throw new MError(MError.Errcode.ACESS_DATABASE_ERROR, error);
             })
             .then(gFilterDocument);
     }
@@ -45,7 +45,7 @@ class DBModel {
         return this.model.findOneAndUpdate(query, changedInfo, {new: true})
             .exec()
             .catch((error) => {
-                throw new MError(MError.ACESS_DATABASE_ERROR, error);
+                throw new MError(MError.Errcode.ACESS_DATABASE_ERROR, error);
             })
             .then(gFilterDocument);
     }
@@ -78,7 +78,7 @@ class DBModel {
             .select(selectArray ? selectArray.join(' ') : '')
             .exec()
             .catch((error) => {
-                throw new MError(MError.ACESS_DATABASE_ERROR, error);
+                throw new MError(MError.Errcode.ACESS_DATABASE_ERROR, error);
             })
             .then((detailInfo) => {
                 if (!detailInfo) {
@@ -92,7 +92,7 @@ class DBModel {
         return this.model.count(query)
             .exec()
             .catch((error) => {
-                throw new MError(MError.ACESS_DATABASE_ERROR, error);
+                throw new MError(MError.Errcode.ACESS_DATABASE_ERROR, error);
             })
             .then(gFilterDocument);
     }
@@ -118,7 +118,7 @@ class DBModel {
             .select(selectArray ? selectArray.join(' ') : '')
             .exec()
             .catch((error) => {
-                throw new MError(MError.ACESS_DATABASE_ERROR, error);
+                throw new MError(MError.Errcode.ACESS_DATABASE_ERROR, error);
             })
             .then(gFilterDocument);
     }
@@ -127,7 +127,7 @@ class DBModel {
         return this.model.aggregate(pipeline)
             .exec()
             .catch((error) => {
-                throw new MError(MError.ACESS_DATABASE_ERROR, error);
+                throw new MError(MError.Errcode.ACESS_DATABASE_ERROR, error);
             })
             .then(gFilterDocument);
     }
