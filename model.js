@@ -2,7 +2,7 @@
  * Created by gukong on 2017/8/14.
  */
 const connectionUtils = require('./util/connection');
-const gFilterDocument = require('./util/doc_filter');
+const gFilterDocument = require('./util/doc_filter').filterDocument;
 const MError = require('./util/error');
 let archiveManager = null;
 

@@ -1,6 +1,10 @@
 /**
  * Created by gukong on 2017/8/14.
  */
+const filterConfig = {
+    filterPropertys: []
+}
+
 function filterDocument(doc, dropPropertyNames) {
     if (!doc) {
         return doc;
@@ -38,4 +42,11 @@ function filterDocument(doc, dropPropertyNames) {
     return doc;
 }
 
-module.exports = filterDocument;
+module.exports = {
+    filterDocument: (doc) => {
+        return filterDocument(doc, filterConfig.filterPropertys)
+    },
+    setFilterProperties: (filters) => {
+        filterConfig.filterPropertys = filters;
+    }
+};
