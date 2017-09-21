@@ -82,7 +82,7 @@ class DBModel {
             })
             .then((detailInfo) => {
                 if (!detailInfo) {
-                    return Promise.reject(new MError(MError.FIND_NOTHING_IN_DB).setMessageTemplateData(['数据']));
+                    return Promise.reject(new MError(MError.Errcode.FIND_NOTHING_IN_DB).setMessageTemplateData(['数据']));
                 }
                 return gFilterDocument(detailInfo);
             });
