@@ -8,15 +8,9 @@ let archiveManager = null;
 
 /** ********************外露接口************************ */
 
-function normalizeName(modelName) {
-    return modelName.replace(/[A-Z]+/g, a => `_${a.toLowerCase()}`).replace(/^_/, '');
-}
-
 class DBModel {
     constructor(dbName, schema) {
-        let name = normalizeName(dbName);
-        name = connectionUtils.isDebugMode() ? `${name}_dev` : name;
-        this.model = connectionUtils.createModel(name, schema);
+        this.model = connectionUtils.createModel(dbName, schema);
     }
 
     /**

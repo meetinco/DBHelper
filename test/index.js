@@ -12,4 +12,4 @@ const model = new DBModel('waiter', schemal);
 
 // update collection
 // model.newDoc({serviceId: '556'});
-model.archive({serviceId: '556'});
+model.remove({serviceId: '556'});
